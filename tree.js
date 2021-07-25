@@ -28,15 +28,16 @@ function treeHelper(dirPath, indent) {
         console.log(indent + "└──" + dirName);
         let childrens = fs.readdirSync(dirPath);
         for (let j = 0; j < childrens.length; j++) {
+            let furtherPath = dirPath + "\\" + childrens[j];
             let further = fs.readdirSync(path.join(dirPath, childrens[j]))
             for(let i = 0;i < further.length;i++)
             {
-                let childPath = path.join(dirPath, further[i]);
-                console.log(indent + "    └──" + childPath);
+                let childPath = path.join(furtherPath, further[i]);
+                console.log(indent + "    └──" + further[i]);
                 let inner = fs.readdirSync(childPath);
                     for (let k = 0;k < inner.length;k++){
-                        let path = path.join(dirPath, inner[k]);
-                        console.log(indent + "└──" + path);
+                        let path = childPath +"\\"+ inner[k];
+                        console.log(indent + "        └──" + inner[k]);
                     }
             //treeHelper(childPath, indent + "\t");
             }
